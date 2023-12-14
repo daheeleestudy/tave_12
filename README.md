@@ -19,9 +19,9 @@ https://dacon.io/competitions/official/236193/overview/description
 
 
 # modeling
-automl = AutoML(mode="Compete",algorithms = [ 'Random Forest', 'LightGBM', 'Xgboost'], n_jobs = -1,total_time_limit=2400, eval_metric="rmse", ml_task = "regression") 사용
+1. automl = AutoML(mode="Compete",algorithms = [ 'Random Forest', 'LightGBM', 'Xgboost'], n_jobs = -1,total_time_limit=2400, eval_metric="rmse", ml_task = "regression") 사용
 
 # 느낀점
-첫 머신러닝 대회 출전. 처음 모델링 했을때 0.47 나왔는
+1. 첫 머신러닝 대회 출전. 처음 모델링 했을때 0.47 나왔는
 
 # 추후 발전을 위해 보완할 점 
