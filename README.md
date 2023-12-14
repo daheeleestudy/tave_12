@@ -22,6 +22,9 @@ https://dacon.io/competitions/official/236193/overview/description
 1. automl = AutoML(mode="Compete",algorithms = [ 'Random Forest', 'LightGBM', 'Xgboost'], n_jobs = -1,total_time_limit=2400, eval_metric="rmse", ml_task = "regression") 사용
 
 # 느낀점
-1. 첫 머신러닝 대회 출전. 처음 모델링 했을때 0.47 나왔는
+1. 첫 머신러닝 대회 출전. 처음 모델링 했을때 0.47- 0.48 나옴. 
+2. 중간에 피드백 받아서 날씨별 데이터 분할 후, 가장 잘나온 모델 각각 돌려보고 파라미터 설정까지 했을 때 0.442 까지 떨어짐
+3. 외부데이터 추가 결합 + autoML 돌리니 0.42대까지 떨어짐. 이게 정답(?) 이었다
+4. autoML pycaret 돌려보고 싶었으나 시간문제로 하지 못함
 
 # 추후 발전을 위해 보완할 점 
