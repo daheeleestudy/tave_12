@@ -13,6 +13,24 @@ https://dacon.io/competitions/official/236193/overview/description
 ![image](https://github.com/daheeleestudy/tave_12/assets/139957707/7f9d12a7-15e5-4bf6-bbac-4c232ddd0ba6)
 
 # preprocessing (모든 파일 공통)
+1. train data
+![image](https://github.com/daheeleestudy/tave_12/assets/139957707/5fb3585a-0ce5-4dd8-8372-cc087450a1ca)
+2. 가해운전자 연령 -> numeric 전환, null값과 미분류값 결측값 대체, 98세 이상 -> 98로 대체 
+3. 데이터 행 제거 
+- 법적인 운전가능 나이만 추출해서 scoring 했지만 낮은 성능 보임, 주석처리함
+- 상식적인(?) 피해운전자 연령 2세 이하 제거했으나 낮은 성능 보임
+- 가장높은 eclo 수치 (outlier처럼 보이는) 제거하면 성능 안좋아짐
+- 결론 : 가해운전자 연령 10세 미만 '만' 제거 
+4. train test data 컬럼 일치
+5. 시군구 -> 도시/구/동으로 split
+6. 도로형태 -> 도로형태1, 도로형태2로 split
+7. 사고일시 -> datetime 전환 및 year/month/day/hour로 split
+8. train data에만 있는 동 컬럼 -> 최빈값 동으로 대체
+9. train data에만 있는 기상상태 컬럼 -> 최빈값 기상상태 대체
+10. hour이 5~10은 출근시간, 11~17은 낮시간 17~23은 퇴근시간 나머지는 새벽시간으로 파생변수 생성
+11. 빨간날(대체공휴일 포함)+ 주말 -> 공휴일 , 아닌날은 평일로 라벨링
+12. 
+ 
 
 
 # 외부데이터 결합 
