@@ -1,6 +1,6 @@
 # 데이콘 대구 교통사고 피해 예측 AI 경진 대회
 https://dacon.io/competitions/official/236193/overview/description
-1. 팀으로 참여하였지만 본인 기여율 99% 
+1. 팀으로 참여하였지만 혼자했다고 해도 무방
 2. 결과: public score 0.42708 (113등/943등) private score 0.42741 (90등/943등,  대략 상위 10% 안)
 
 # 후기
@@ -27,13 +27,19 @@ https://dacon.io/competitions/official/236193/overview/description
 7. 사고일시 -> datetime 전환 및 year/month/day/hour로 split
 8. train data에만 있는 동 컬럼 -> 최빈값 동으로 대체
 9. train data에만 있는 기상상태 컬럼 -> 최빈값 기상상태 대체
-10. hour이 5~10은 출근시간, 11~17은 낮시간 17~23은 퇴근시간 나머지는 새벽시간으로 파생변수 생성
+10. hour이 5 - 10은 출근시간, 11 - 17은 낮시간 17~23은 퇴근시간 나머지는 새벽시간으로 파생변수 생성
 11. 빨간날(대체공휴일 포함)+ 주말 -> 공휴일 , 아닌날은 평일로 라벨링
-12. 
+12. month 기준 봄 여름 가을 겨울 계절 변수 추가
  
-
-
 # 외부데이터 결합 
+주최 측 제공 외부데이터 사용 -> 대구 주차장 정보 데이터 사용
+![image](https://github.com/daheeleestudy/tave_12/assets/139957707/3eb492b4-dae3-4e77-a568-ae4ebfb17e99)
+- 소재지지번주소, 급지구분 -> 도시 구 동 번지 컬럼으로 split 한 후 one hot encoding, 동별 급지구분 갯수 groupby 합계 ( 소재지지번주소 컬럼만 merge했을 때의 방법으로 최종 채택함. public score 0.4208
+- 소재지지번주소, 주차기본시간, 주차기본요금, 주차구획수 -> 결측값이 없는 컬 사용, 소재지 지번주소 컬럼 split 후 merge함. merge후 결측값에 대해 각 컬럼(주차기본시간, 주차기본요금, 주차구획수)에 대한 평균값 대체, minmax scaling 후 동 컬럼의 value counts를 구한 후 각 동의 값 가중치로 곱함
+  
+
+
+
 
 
 # modeling
