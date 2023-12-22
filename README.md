@@ -34,13 +34,11 @@ https://dacon.io/competitions/official/236193/overview/description
 # 외부데이터 결합 
 주최 측 제공 외부데이터 사용 -> 대구 주차장 정보 데이터 사용
 ![image](https://github.com/daheeleestudy/tave_12/assets/139957707/3eb492b4-dae3-4e77-a568-ae4ebfb17e99)
-- 소재지지번주소, 급지구분 -> 도시 구 동 번지 컬럼으로 split 한 후 one hot encoding, 동별 급지구분 갯수 groupby 합계 ( 소재지지번주소 컬럼만 merge했을 때의 방법으로 최종 채택함. public score 0.4208
-- 소재지지번주소, 주차기본시간, 주차기본요금, 주차구획수 -> 결측값이 없는 컬 사용, 소재지 지번주소 컬럼 split 후 merge함. merge후 결측값에 대해 각 컬럼(주차기본시간, 주차기본요금, 주차구획수)에 대한 평균값 대체, minmax scaling 후 동 컬럼의 value counts를 구한 후 각 동의 값 가중치로 곱함
+- 1) 소재지지번주소, 급지구분 -> 도시 구 동 번지 컬럼으로 split 한 후 one hot encoding, 동별 급지구분 갯수 groupby 합계 ( 소재지지번주소 컬럼만 merge했을 때의 방법으로 최종 채택함. public score 0.4208
+- 2) 소재지지번주소, 주차기본시간, 주차기본요금, 주차구획수 -> 결측값이 없는 컬 사용, 소재지 지번주소 컬럼 split 후 merge함. merge후 결측값에 대해 각 컬럼(주차기본시간, 주차기본요금, 주차구획수)에 대한 평균값 대체, minmax scaling 후 동 컬럼의 value counts를 구한 후 각 동의 값 가중치로 곱함
+- 3) 대구 광역시 읍면동별 자동차 등록현황 https://www.data.go.kr/data/15011919/fileData.do  동별 승용	승합	화물	특수 차량 수 구함, 없는 동에 대해서는 mean값 대체
+- 최종적으로 1만 merge했을 때  public score 0.42708로 public 성능에서는 좋았지만 private에서는 0.42741로 다른 데이터를 결합했을 때 보다 낮은 성능이 나옴.  2의 가중치 곱하지 않은 값 + 3을 merge 했을 때 private score에서 0.42694로 가장 괜찮은 성능이 나옴
   
-
-
-
-
 
 # modeling
 1. automl = AutoML(mode="Compete",algorithms = [ 'Random Forest', 'LightGBM', 'Xgboost'], n_jobs = -1,total_time_limit=2400, eval_metric="rmse", ml_task = "regression") 사용
@@ -50,5 +48,10 @@ https://dacon.io/competitions/official/236193/overview/description
 2. 중간에 피드백 받아서 날씨별 데이터 분할 후, 가장 잘나온 모델 각각 돌려보고 파라미터 설정까지 했을 때 0.442 까지 떨어짐
 3. 외부데이터 추가 결합 + autoML 돌리니 0.42대까지 떨어짐. 이게 정답(?) 이었다
 4. autoML pycaret 돌려보고 싶었으나 시간문제로 하지 못함
+5. xgbregressor에서 가장 괜찮게 나왔던 방법이 autoML을 돌리고 private score에 적용했을 때, 가장 좋은 성능이 나
 
 # 추후 발전을 위해 보완할 점 
+- 전처리를 조금 더 기발한 아이디어를 써서 해볼것 - ex) 코로나 시기 고려, sin cos변환, 종속변수의 수치를 고려한 파생변수 생성, 시계열 고려 등(LSTM 모델 등)
+- seed도 다양하게 해봐라!
+- 진짜 실력 발휘를 위해서는 autoML 보다는 xgb, randomforest,catboost 같은 모델 이용해서 파라미터를 좀더 기발하게 설정하는 방법을 시도해보기 (주어진 파라미터 들을 다 넣어보고, 시간투자 많이 해서 다양하게 시도해보기, gridsearch만 했었는데 학교에서 배운 optuna 같은것도 시도해볼걸, tensorflow+ keras tuner 조합도 시도해볼걸!)
+- 외부데이터를 더 다양하게 활용해볼 것. 
