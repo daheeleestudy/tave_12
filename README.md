@@ -69,6 +69,25 @@ https://dacon.io/competitions/official/236193/overview/description
 ![image](https://github.com/daheeleestudy/dacon_car_accident/assets/139957707/060cace6-5211-48b2-aff9-5b3348a6967b)
 6. 일출, 일몰 시간 - hour와  종속변수(ECLO) 와의 관계에서  밤, 새벽시간 일수록 ECLO가 높은 것을 보임 ->   
 햇빛 양과 교통사고가 상관있을거라고 판단,해가 떠있는 시간에 해당하면 1, 아니면 0으로 라벨링
-![image](https://github.com/daheeleestudy/dacon_car_accident/assets/139957707/44daf41c-21c6-432a-9af8-330025990de2)
+![image](https://github.com/daheeleestudy/dacon_car_accident/assets/139957707/02ca7938-15d4-47af-b4ab-2d7ef113e5a6)
+### 전처리
+1. ‘ID’,’사고일시‘,’도시‘컬럼 drop
+2. 가해운전자 연령 -> 10세 미만 제거
+3. '보안등' , '어린이보호구역' ,'위도', '경도' , '도로폭' , '제한속도' ,'승용' ,'승합' , '화물' , '특수' , '소계'  '연도' 를 포함하는 컬럼 -> null값에 대해 평균값 대체 ( 주로 연속형 변수)
+4. ‘구획수’,’급지구분‘,’총개수‘,’'단속구분' -> 결측값 0 대체
+5. 출퇴근 시간 라벨링 (5~11 : 출근시간, 11~17: 낮시간, 17~23:  퇴근시간, 나머지: 새벽시간)
+6. 국가지정 공휴일(대체공휴일 포함) -> 휴일/평일 라벨링
+7. 계절 파생변수 추가
+8. 2020년, 2021년 -> 코로나 변수 추가
+### 최종 데이터 프레임 -> 38585 X 84
+### 모델링
+1. XGB, LGBM, CatBoost 앙상블 , optuna 파라미터 튜닝 진행 
+2. 가중치를 100%의 비율을 할당하여 각 0.4,0.3,0.3 곱해줌 
+### scoring
+1. private 기준 0.42653 도출, 이전보다 성능개선함
+
+
+
+
 
 
