@@ -1,7 +1,6 @@
 # 데이콘 대구 교통사고 피해 예측 AI 경진 대회
 https://dacon.io/competitions/official/236193/overview/description
-1. 팀으로 참여하였지만 혼자했다고 해도 무방
-2. 결과: public score 0.42708 (113등/943등) private score 0.42741 (90등/943등,  대략 상위 10% 안)
+결과: public score 0.42708 (113등/943등) private score 0.42741 (90등/943등,  대략 상위 10% 안)
 
 # 후기
 1. 독립변수와 종속변수 사이 correlation이 매우 작아 중대한 영향을 끼치는 컬럼을 알기 어려웠음
